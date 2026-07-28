@@ -16,6 +16,8 @@ npx skills update domain-modeling
 
 This is the **active** discipline, not the passive one. Merely reading `CONTEXT.md` to borrow its vocabulary is a one-line habit any skill can do; this skill is for when you are *changing* the model — coining a canonical term, catching a contradiction between the code and what you just said, recording a hard-to-reverse decision. And it keeps the glossary clean: `CONTEXT.md` is a glossary and nothing else — no implementation details, no spec, no scratch pad.
 
+The admission test is whether the project gives a term a stable, recurring distinction that changes how people reason about behaviour, ownership, boundaries, or safety. A familiar technical term can qualify when that precise distinction matters; a programming term used with its ordinary meaning does not qualify merely because the code uses it often.
+
 ## When to reach for it
 
 Type `/domain-modeling`, or the agent reaches for it automatically when a task fits — when you are pinning down terminology, resolving an overloaded word, or recording an architectural decision.
