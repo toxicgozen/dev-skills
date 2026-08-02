@@ -1,3 +1,4 @@
 interface:
-  display_name: "Obsidian Vault"
-  short_description: "Manage linked notes in Obsidian"
+  display_name: "Save to Obsidian"
+  short_description: "Save sourced content as an Obsidian note"
+  default_prompt: "Use $obsidian-vault to save this content as a sourced note in the appropriate Obsidian vault."
