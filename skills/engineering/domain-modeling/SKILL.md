@@ -41,6 +41,12 @@ Create files lazily — only when you have something to write. If no `CONTEXT.md
 
 ## During the session
 
+### Apply the admission test
+
+Admit a term when the project gives it a stable, recurring distinction that changes how people reason about behaviour, ownership, boundaries, or safety. A familiar technical term can qualify when that precise distinction matters. Do not admit a programming term merely because the project uses it often with its ordinary meaning.
+
+Before accepting or rejecting a candidate, compare it with its nearest alternatives and ask whether substituting one for another would change the project's reasoning. Treat industry familiarity as neither automatic acceptance nor automatic rejection. For example, `idempotency key` may qualify when the project relies on receiver-enforced duplicate suppression and must distinguish that guarantee from request tracing; `UUID` does not qualify merely because it can encode such a key.
+
 ### Challenge against the glossary
 
 When the user uses a term that conflicts with the existing language in `CONTEXT.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"

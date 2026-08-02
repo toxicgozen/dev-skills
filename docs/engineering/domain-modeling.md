@@ -18,6 +18,8 @@ This is the **active** discipline, not the passive one. Merely reading `CONTEXT.
 
 The admission test is whether the project gives a term a stable, recurring distinction that changes how people reason about behaviour, ownership, boundaries, or safety. A familiar technical term can qualify when that precise distinction matters; a programming term used with its ordinary meaning does not qualify merely because the code uses it often.
 
+Industry familiarity is therefore neither automatic acceptance nor automatic rejection. Compare a candidate with its nearest alternatives: `idempotency key` may belong when the project depends on its receiver-enforced duplicate-suppression guarantee and must distinguish it from request tracing, while `UUID` does not belong merely because it can encode that key.
+
 ## When to reach for it
 
 Type `/domain-modeling`, or the agent reaches for it automatically when a task fits — when you are pinning down terminology, resolving an overloaded word, or recording an architectural decision.
