@@ -6,8 +6,8 @@ import test from "node:test";
 import { parseVaults, selectVault } from "./resolve-vault.mjs";
 
 const registeredVaults = [
-  { name: "Nagare", path: "C:\\Users\\person\\Dropbox\\Nagare" },
-  { name: "Ero", path: "C:\\Users\\person\\Dropbox\\Ero" },
+  { name: "Nagare", path: "D:\\Vaults\\Nagare" },
+  { name: "Ero", path: "D:\\Vaults\\Ero" },
 ];
 
 test("an explicit vault selection wins over the active vault", () => {
@@ -54,16 +54,16 @@ test("one registered vault can be selected without stored configuration", () => 
   });
 });
 
-test("vault discovery ignores wrapper banners and preserves paths with spaces", () => {
+test("vault discovery ignores non-vault lines and preserves paths with spaces", () => {
   const output = [
-    "✅ Proxy enabled: 127.0.0.1:1080",
-    "Research\tD:\\Obsidian Vaults\\Research Notes",
-    "Work\tD:\\Obsidian Vaults\\Work",
+    "Launcher ready",
+    "Research\tD:\\Vaults\\Research Notes",
+    "Work\tD:\\Vaults\\Work",
   ].join("\n");
 
   assert.deepEqual(parseVaults(output), [
-    { name: "Research", path: "D:\\Obsidian Vaults\\Research Notes" },
-    { name: "Work", path: "D:\\Obsidian Vaults\\Work" },
+    { name: "Research", path: "D:\\Vaults\\Research Notes" },
+    { name: "Work", path: "D:\\Vaults\\Work" },
   ]);
 });
 

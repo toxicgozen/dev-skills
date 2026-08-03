@@ -43,11 +43,37 @@ export function appendChunks({ chunks, vault, path, run }) {
     ]);
 
     if (result.status !== 0) {
-      const detail = result.stderr.trim() || result.stdout.trim() || "unknown error";
+      const detail = commandDetail(result);
       throw new Error(
         `Chunk ${index + 1} of ${chunks.length} failed: ${detail}`,
       );
     }
+  }
+}
+
+function commandDetail(result) {
+  return (
+    result.stderr?.trim() || result.stdout?.trim() || result.error?.message ||
+    "unknown error"
+  );
+}
+
+function normalizedBody(content) {
+  return content.replaceAll("\r\n", "\n").trimEnd();
+}
+
+export function appendAndVerify({ content, chunks, vault, path, run }) {
+  appendChunks({ chunks, vault, path, run });
+
+  const result = run(["read", `vault=${vault}`, `path=${path}`]);
+  if (result.status !== 0) {
+    throw new Error(`Read-back failed: ${commandDetail(result)}`);
+  }
+
+  const expected = normalizedBody(content);
+  const actual = normalizedBody(result.stdout ?? "");
+  if (!expected || !actual.includes(expected)) {
+    throw new Error("Read-back did not contain the complete appended body.");
   }
 }
 
@@ -82,7 +108,7 @@ export function runCli(args, content) {
   };
 
   if (!args.includes("--dry-run")) {
-    appendChunks({ chunks, vault, path, run: runObsidian });
+    appendAndVerify({ content, chunks, vault, path, run: runObsidian });
   }
 
   return summary;

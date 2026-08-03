@@ -3,7 +3,11 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { appendChunks, splitUtf8 } from "./append-content.mjs";
+import {
+  appendAndVerify,
+  appendChunks,
+  splitUtf8,
+} from "./append-content.mjs";
 
 test("long Unicode content is losslessly split below the Windows IPC crash threshold", () => {
   const content = "开发指南🙂\n".repeat(900);
@@ -53,6 +57,48 @@ test("append calls are serialized and stop at the first failed chunk", () => {
       "inline",
     ],
   ]);
+});
+
+test("a failed read-back makes the write fail even after successful appends", () => {
+  const calls = [];
+  const run = (args) => {
+    calls.push(args);
+    return args[0] === "read"
+      ? { status: 1, stdout: "", stderr: "application unavailable" }
+      : { status: 0, stdout: "", stderr: "" };
+  };
+
+  assert.throws(
+    () =>
+      appendAndVerify({
+        content: "firstsecond",
+        chunks: ["first", "second"],
+        vault: "Research",
+        path: "Flow/Note.md",
+        run,
+      }),
+    /read-back failed: application unavailable/i,
+  );
+  assert.equal(calls.at(-1)[0], "read");
+});
+
+test("read-back must contain the complete appended body", () => {
+  const run = (args) =>
+    args[0] === "read"
+      ? { status: 0, stdout: "---\ntags: []\n---\npartial", stderr: "" }
+      : { status: 0, stdout: "", stderr: "" };
+
+  assert.throws(
+    () =>
+      appendAndVerify({
+        content: "complete body",
+        chunks: ["complete body"],
+        vault: "Research",
+        path: "Flow/Note.md",
+        run,
+      }),
+    /read-back did not contain the complete appended body/i,
+  );
 });
 
 test("the command-line interface accepts long content on stdin without writing", () => {

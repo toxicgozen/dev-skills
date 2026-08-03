@@ -11,7 +11,22 @@ specific vault or machine.
 
 ## 1. Resolve the target vault
 
-Run the resolver from this skill directory:
+Begin with the read-only connection probe:
+
+```text
+obsidian help
+```
+
+If Obsidian cannot be found:
+
+1. Check whether the Obsidian application is running.
+2. Start it only when it is absent and retry `obsidian help`.
+3. If it is running but sandboxed access still fails, retry `obsidian help`
+   outside the sandbox to identify IPC isolation.
+4. Request narrowly scoped access for the required Obsidian subcommand. Do not
+   disable the sandbox or replay a write merely to diagnose the connection.
+
+After the probe succeeds, run the resolver from this skill directory:
 
 ```text
 node scripts/resolve-vault.mjs [--vault "Explicit Name"]
@@ -20,16 +35,6 @@ node scripts/resolve-vault.mjs [--vault "Explicit Name"]
 Use an explicitly requested vault when present. Otherwise use the active vault
 when it is registered, or the only registered vault. If several vaults remain
 plausible, ask the user. Never silently replace an invalid explicit choice.
-
-If the resolver cannot run Obsidian:
-
-1. Run the read-only `obsidian help` probe.
-2. Check whether the Obsidian application is running.
-3. Start it only when it is absent and retry the original read-only probe.
-4. If it is running but sandboxed access still fails, retry the same read-only
-   probe outside the sandbox to identify IPC isolation.
-5. Request narrowly scoped access for the required Obsidian subcommand. Do not
-   disable the sandbox or replay a write merely to diagnose the connection.
 
 Pass `vault=<resolved-name>` to subsequent Obsidian commands. Do not persist a
 vault name or path during ordinary use. A future device-local choice requires
@@ -107,9 +112,10 @@ node scripts/append-content.mjs --vault "Resolved Name" --path "Folder/Note.md"
 
 Send the body on stdin. The writer splits UTF-8 without breaking code points,
 keeps each `content=` payload below 2 KiB, invokes `obsidian append ... inline`
-serially, and stops at the first failed chunk. Never run Obsidian CLI writes in
-parallel. Treat a main-process error dialog as a failed write even when the CLI
-returned exit code 0.
+serially, stops at the first failed chunk, and reads the note back to verify the
+complete body. Do not bypass the writer by parallelizing chunks from one body.
+Treat a main-process error dialog as a failed write even when the CLI returned
+exit code 0.
 
 After each create or edit, read the exact target back and verify:
 

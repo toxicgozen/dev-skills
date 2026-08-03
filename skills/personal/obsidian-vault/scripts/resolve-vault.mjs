@@ -6,7 +6,7 @@ function meaningfulLines(output) {
   return output
     .split(/\r?\n/)
     .map((line) => line.trim())
-    .filter((line) => line && !line.startsWith("✅ Proxy enabled:"));
+    .filter(Boolean);
 }
 
 export function parseVaults(output) {
