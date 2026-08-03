@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capture a TickTick Task"
+  short_description: "Create and verify one TickTick task"
+  default_prompt: "Use $ticktick-capture-task to capture this as one TickTick task and verify the result."
