@@ -6,16 +6,16 @@ import test from "node:test";
 import { parseVaults, selectVault } from "./resolve-vault.mjs";
 
 const registeredVaults = [
-  { name: "Nagare", path: "D:\\Vaults\\Nagare" },
-  { name: "Ero", path: "D:\\Vaults\\Ero" },
+  { name: "Research", path: "D:\\Vaults\\Research" },
+  { name: "Work", path: "D:\\Vaults\\Work" },
 ];
 
 test("an explicit vault selection wins over the active vault", () => {
   assert.deepEqual(
     selectVault({
       vaults: registeredVaults,
-      requestedName: "Nagare",
-      activeName: "Ero",
+      requestedName: "Research",
+      activeName: "Work",
     }),
     { ...registeredVaults[0], source: "explicit" },
   );
@@ -27,7 +27,7 @@ test("an unknown explicit vault fails instead of falling back", () => {
       selectVault({
         vaults: registeredVaults,
         requestedName: "Missing",
-        activeName: "Nagare",
+        activeName: "Research",
       }),
     /requested vault "Missing" is not registered/i,
   );
@@ -35,7 +35,7 @@ test("an unknown explicit vault fails instead of falling back", () => {
 
 test("the active vault resolves an otherwise ambiguous selection", () => {
   assert.deepEqual(
-    selectVault({ vaults: registeredVaults, activeName: "Ero" }),
+    selectVault({ vaults: registeredVaults, activeName: "Work" }),
     { ...registeredVaults[1], source: "active" },
   );
 });
