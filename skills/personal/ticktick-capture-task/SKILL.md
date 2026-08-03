@@ -23,9 +23,9 @@ If no title can be identified without guessing, ask the user for one. Do not
 look in Obsidian or another application for context, enrichment, defaults, or
 related records.
 
-This skill creates exactly one task. Reject or narrow batch requests instead of
-silently creating several tasks. Do not update, complete, delete, move, or
-otherwise modify an existing task.
+This skill creates exactly one task. For a batch request, stop and ask the user
+to choose one task; do not choose on their behalf or write until they do. Do not
+update, complete, delete, move, or otherwise modify an existing task.
 
 ## 2. Resolve the destination
 
@@ -35,6 +35,11 @@ Read the available TickTick projects before creating the task.
   project is missing or more than one project remains plausible, stop and ask
   the user. Never create a project implicitly.
 - When the user did not name a project, use TickTick's Inbox.
+
+When the user supplied tags, read the available TickTick tags and require an
+exact existing match for each one. If tags cannot be listed or any supplied tag
+is missing or ambiguous, stop before writing. Never pass an unverified tag to a
+create operation that might create it implicitly.
 
 Use the resolved project's identifier for both creation and verification. Do
 not persist project choices or connector availability as configuration.
