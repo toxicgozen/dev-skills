@@ -95,6 +95,22 @@ Use Obsidian-aware create, move, rename, and delete operations when the vault
 contract requires them. Never replace a required link-aware operation with a
 filesystem move, rename, or delete because the CLI is unavailable.
 
+Do not put an arbitrary note body into one `content=` or `code=` argument.
+Obsidian on Windows can crash its main process when one CLI argument crosses an
+IPC chunk boundary while the CLI still exits successfully. Create the small
+template or shell first, then stream long body content through the bundled
+writer from this skill directory:
+
+```text
+node scripts/append-content.mjs --vault "Resolved Name" --path "Folder/Note.md"
+```
+
+Send the body on stdin. The writer splits UTF-8 without breaking code points,
+keeps each `content=` payload below 2 KiB, invokes `obsidian append ... inline`
+serially, and stops at the first failed chunk. Never run Obsidian CLI writes in
+parallel. Treat a main-process error dialog as a failed write even when the CLI
+returned exit code 0.
+
 After each create or edit, read the exact target back and verify:
 
 - the expected path exists and is non-empty;
