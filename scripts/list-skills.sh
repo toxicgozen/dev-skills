@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="$(cd "$(dirname "$0")/.." && pwd)"
+REPO="$(cd "${BASH_SOURCE[0]%/*}/.." && pwd)"
 
-cd "$REPO"
-find . -name SKILL.md -not -path '*/node_modules/*' | sed 's|^\./||' | sort
+for skill_md in "$REPO"/skills/*/SKILL.md; do
+  printf '%s\n' "${skill_md#"$REPO"/}"
+done

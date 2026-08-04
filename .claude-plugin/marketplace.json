@@ -1,19 +1,19 @@
 {
-  "name": "mattpocock",
+  "name": "toxicgozen",
   "owner": {
-    "name": "Matt Pocock",
-    "url": "https://www.aihero.dev"
+    "name": "toxicgozen",
+    "url": "https://github.com/toxicgozen"
   },
-  "description": "Matt Pocock's skills for real engineering, as an installable Claude Code plugin.",
+  "description": "Curated agent skills maintained by toxicgozen.",
   "plugins": [
     {
-      "name": "mattpocock-skills",
+      "name": "dev-skills",
       "source": "./",
-      "description": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more.",
-      "category": "engineering",
+      "description": "Adapted development-workflow skills derived from Matt Pocock's collection.",
+      "category": "development",
       "keywords": [
-        "engineering",
-        "skills",
+        "agent-skills",
+        "development-workflow",
         "tdd",
         "code-review",
         "grilling"

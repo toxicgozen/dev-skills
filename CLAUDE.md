@@ -1,26 +1,39 @@
-Before modifying this public personal fork, read [`FORK.md`](./FORK.md) and apply its privacy and upstream-contribution boundary in addition to the upstream rules below.
+Before modifying this public fork, read [`FORK.md`](./FORK.md) and apply its
+privacy and upstream-contribution rules.
 
-Skills are organized into bucket folders under `skills/`:
+This repository is a curated, installable adaptation of selected skills from
+Matt Pocock's collection. It is not a tracking mirror of the upstream tree.
 
-- `engineering/` — daily code work
-- `productivity/` — daily non-code workflow tools
-- `misc/` — kept around but rarely used, not promoted
-- `personal/` — tied to my own setup, not promoted
-- `in-progress/` — drafts not yet ready to ship
-- `deprecated/` — no longer used
+## Skill set
 
-Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array (the Claude Code plugin ships exactly the promoted set). Skills in `misc/`, `personal/`, `in-progress/`, and `deprecated/` must not appear in either.
+- Skills live flat at `skills/<skill-name>/SKILL.md`.
+- Every direct child of `skills/` ships through
+  `npx skills add toxicgozen/dev-skills`.
+- Do not introduce category, promotion, lifecycle, personal, draft, or
+  deprecated buckets beneath `skills/`.
+- If a skill is not part of the maintained set, remove it from this repository
+  instead of hiding it from installers.
+- Treat upstream changes as candidates to review and adapt. Do not merge an
+  upstream bucket or repository layout into this install surface.
 
-The repo is also its own single-plugin Claude Code marketplace: `.claude-plugin/marketplace.json` lists the one `mattpocock-skills` plugin. When bumping the release version, keep `.claude-plugin/plugin.json`'s `version` in sync with `package.json`'s — Claude uses the plugin `version` to decide when installed users see an update. Run `claude plugin validate . --strict` after touching either manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+When adding, renaming, or removing a skill, update the top-level `README.md`,
+`.claude-plugin/plugin.json`, and any routes in `ask-matt` affected by the
+change. Run `npm test` and verify the CLI discovery result with
+`npx skills add . --list`.
 
-Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
+Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus
+`policy.allow_implicit_invocation: false` in `agents/openai.yaml`) or
+model-invoked. See [`.agents/invocation.md`](./.agents/invocation.md).
 
-Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`. The promoted buckets' `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**; non-promoted bucket `README.md`s (`misc/`, `personal/`) use a flat list.
+The repository is also a single-plugin Claude Code marketplace.
+`.claude-plugin/marketplace.json` lists the `dev-skills` plugin, and the plugin
+manifest lists every directory under `skills/`. Keep its version in sync with
+`package.json` and run `claude plugin validate . --strict` after changing a
+manifest.
 
-Skills in `engineering/` and `productivity/` also have a human-facing docs page at `docs/<bucket>/<skill-name>.md` (the docs tree mirrors those two bucket folders under `skills/`). The published URL is `https://aihero.dev/skills-<skill-name>` regardless of bucket — the docs path is repo organisation only. When you add, rename, or change the behaviour of a skill in `engineering/` or `productivity/`, create or re-sync its docs page following [.agents/writing-docs.md](./.agents/writing-docs.md). Skills in the non-promoted buckets (`misc/`, `personal/`, `in-progress/`, `deprecated/`) get **no** docs page.
+[`ask-matt`](./skills/ask-matt/SKILL.md) maps the user-reachable skills and how
+they relate. Update it whenever a skill is added, renamed, removed, or changes
+its role in a flow.
 
-Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable). See [.agents/invocation.md](./.agents/invocation.md).
-
-[`ask-matt`](./skills/engineering/ask-matt/SKILL.md) is the router that maps every user-reachable skill and how they relate. The same trigger that re-syncs a docs page applies to it: whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-matt`'s `SKILL.md` and update it so the map stays accurate — a new skill it never mentions, or a stale one it still routes to, is a router that lies.
-
-To (re)link every skill into the local harness skill directories (`~/.claude/skills`, `~/.agents/skills`), run `scripts/link-skills.sh`. Each entry is a symlink into this repo, so a `git pull` keeps installed skills current; re-run the script after adding, removing, or renaming a skill.
+For local development links into `~/.claude/skills` and `~/.agents/skills`, run
+`scripts/link-skills.sh`. This is a maintainer convenience, not an installer.

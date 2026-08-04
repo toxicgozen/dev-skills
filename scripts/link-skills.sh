@@ -12,17 +12,17 @@ set -euo pipefail
 # Each entry is a symlink into this repo, so a `git pull` is all that's needed
 # to keep installed skills up to date.
 
-REPO="$(cd "$(dirname "$0")/.." && pwd)"
+REPO="$(cd "${BASH_SOURCE[0]%/*}/.." && pwd)"
 DESTS=("$HOME/.claude/skills" "$HOME/.agents/skills")
 
-# Collect the repo's skills once, link into every destination.
+# Collect the flat install set once, then link it into every destination.
 names=()
 srcs=()
-while IFS= read -r -d '' skill_md; do
-  src="$(dirname "$skill_md")"
-  names+=("$(basename "$src")")
+for skill_md in "$REPO"/skills/*/SKILL.md; do
+  src="${skill_md%/SKILL.md}"
+  names+=("${src##*/}")
   srcs+=("$src")
-done < <(find "$REPO/skills" -name SKILL.md -not -path '*/node_modules/*' -not -path '*/deprecated/*' -print0)
+done
 
 for DEST in "${DESTS[@]}"; do
   # If $DEST is a symlink that resolves into this repo, we'd end up writing the
