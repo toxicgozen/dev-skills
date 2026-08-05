@@ -1,22 +1,22 @@
 ---
 name: to-spec
-description: Turn the current conversation into a spec and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.
+description: Turn the current conversation into a spec at the destination declared by the project — no interview, just synthesis of what you've already discussed.
 disable-model-invocation: true
 ---
 
 This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user — just synthesize what you already know.
 
-The issue tracker and triage label vocabulary should have been provided to you — run `/setup-matt-pocock-skills` if not.
+The consuming project's spec contract owns the destination, template, naming, status, and publication boundary. Prefer a repo-local spec file when the project declares one. Never create an external issue, apply a label, or publish outside the repository unless the user explicitly requests that external action in the current task. If the project has no spec contract and no issue-tracker setup yet, run `/setup-matt-pocock-skills` only when the user wants tracker-backed publication.
 
 ## Process
 
-1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.
+1. Read the project's agent contract and spec instructions, then explore the repo to understand the current state of the codebase if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.
 
 2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
 
 Check with the user that these seams match their expectations.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+3. Write the spec using the project's declared template and destination. If the project has no spec contract, use the fallback template below and return the draft in the conversation rather than inventing an external destination. External publication requires a separate explicit user instruction — only then publish to the project issue tracker and apply the `ready-for-agent` triage label.
 
 <spec-template>
 

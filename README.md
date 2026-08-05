@@ -10,9 +10,11 @@
 
 # Skills For Real Engineers
 
+> **Fork:** [`toxicgozen/dev-skills`](https://github.com/toxicgozen/dev-skills) tracks [`mattpocock/skills`](https://github.com/mattpocock/skills). Read [`FORK.md`](./FORK.md) for privacy, sync, and the promoted install overlay. Prefer `node scripts/install-promoted.mjs` (or `npm run install:promoted`) so installs match `.claude-plugin/plugin.json` rather than every nested draft under `skills/`.
+
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
-My agent skills that I use every day to do real engineering - not vibe coding.
+Upstream agent skills for real engineering - not vibe coding. This fork stays aligned with that tree and applies only small local overlays.
 
 Developing real applications is hard. Approaches like GSD, BMAD, and Spec-Kit try to help by owning the process. But while doing so, they take away your control and make bugs in the process hard to resolve.
 
@@ -46,28 +48,36 @@ It's in Claude Code's official marketplace, so there's nothing to add first, and
 </details>
 
 <details>
-<summary><strong>Codex, and other agents</strong></summary>
+<summary><strong>Codex, and other agents (this fork)</strong></summary>
+
+Install only the promoted set from this fork:
 
 ```bash
-npx skills@latest add mattpocock/skills
+node scripts/install-promoted.mjs toxicgozen/dev-skills
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take — make sure `setup-matt-pocock-skills` is one of them.**
+Or from a local checkout:
 
-A native Codex plugin is on the roadmap — see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+```bash
+node scripts/install-promoted.mjs .
+```
+
+The script reads `.claude-plugin/plugin.json` and passes those skill names to `npx skills`. Raw `npx skills add toxicgozen/dev-skills` without the script may also offer non-promoted buckets — prefer the script. **Make sure `setup-matt-pocock-skills` is included** (it is, when using the script).
+
+A native Codex plugin is on the upstream roadmap — see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
 </details>
 
 <details>
 <summary><strong>For tinkerers</strong></summary>
 
-Use the same installer, on any agent — including Claude Code:
+Use the promoted installer on any agent — including Claude Code — when you want editable copies:
 
 ```bash
-npx skills@latest add mattpocock/skills
+node scripts/install-promoted.mjs toxicgozen/dev-skills
 ```
 
-It writes the skills into your repo as ordinary files you own and can edit. Nothing updates behind your back; pull my latest changes when you want them with `npx skills update`.
+It writes the skills into your repo as ordinary files you own and can edit. Sync this fork from upstream when you want Matt's latest changes, then re-apply any remaining overlays from `FORK.md`.
 
 </details>
 

@@ -1,16 +1,19 @@
 {
-  "name": "mattpocock-skills",
-  "version": "1.2.0",
+  "name": "dev-skills",
+  "version": "1.2.1",
   "private": true,
-  "description": "Matt Pocock's agent skills for real engineering",
+  "description": "Public fork of Matt Pocock's agent skills — tracks upstream with a promoted install overlay",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattpocock/skills"
+    "url": "https://github.com/toxicgozen/dev-skills.git"
   },
   "license": "MIT",
   "scripts": {
     "changeset": "changeset",
-    "version": "changeset version"
+    "version": "changeset version",
+    "test": "node scripts/check-promoted-layout.mjs",
+    "check:privacy": "node scripts/check-fork-privacy.mjs",
+    "install:promoted": "node scripts/install-promoted.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",

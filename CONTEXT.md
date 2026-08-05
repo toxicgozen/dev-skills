@@ -1,6 +1,6 @@
-# Matt Pocock Skills
+# Matt Pocock Skills (toxicgozen/dev-skills fork)
 
-A collection of agent skills (slash commands and behaviors) loaded by Claude Code. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills`.
+A collection of agent skills (slash commands and behaviors) tracked from upstream and adapted only where this fork documents an overlay. Skills are organized into buckets; the promoted set is the `skills` array in `.claude-plugin/plugin.json`. Consumers install that set via the Claude plugin or `scripts/install-promoted.mjs`. Per-repo configuration is emitted by `/setup-matt-pocock-skills`.
 
 ## Language
 

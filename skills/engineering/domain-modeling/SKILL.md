@@ -1,11 +1,11 @@
 ---
 name: domain-modeling
-description: Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.
+description: Build and sharpen a project's ubiquitous language and domain model. Use when the user wants to pin down recurring project terminology, resolve an overloaded concept, record an architectural decision, or when another skill needs to maintain the domain model.
 ---
 
 # Domain Modeling
 
-Actively build and sharpen the project's domain model as you design. This is the *active* discipline — challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `CONTEXT.md` for vocabulary is not this skill — that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
+Actively build and sharpen the project's ubiquitous language and domain model as you design. This is the *active* discipline — challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `CONTEXT.md` for vocabulary is not this skill — that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
 
 ## File structure
 
@@ -40,6 +40,12 @@ If a `CONTEXT-MAP.md` exists at the root, the repo has multiple contexts. The ma
 Create files lazily — only when you have something to write. If no `CONTEXT.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
 
 ## During the session
+
+### Apply the admission test
+
+Admit a term when the project gives it a stable, recurring distinction that changes how people reason about behaviour, ownership, boundaries, or safety. A familiar technical term can qualify when that precise distinction matters. Do not admit a programming term merely because the project uses it often with its ordinary meaning.
+
+Before accepting or rejecting a candidate, compare it with its nearest alternatives and ask whether substituting one for another would change the project's reasoning. Treat industry familiarity as neither automatic acceptance nor automatic rejection. For example, `idempotency key` may qualify when the project relies on receiver-enforced duplicate suppression and must distinguish that guarantee from request tracing; `UUID` does not qualify merely because it can encode such a key.
 
 ### Challenge against the glossary
 

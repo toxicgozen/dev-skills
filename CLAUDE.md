@@ -1,3 +1,7 @@
+Before modifying this public personal fork, read [`FORK.md`](./FORK.md) and apply its privacy and upstream-tracking boundary in addition to the upstream rules below.
+
+This fork tracks [mattpocock/skills](https://github.com/mattpocock/skills). Prefer upstream behaviour; keep only small overlays documented in `FORK.md` / fork ADRs. Recommended non-Claude installs use `scripts/install-promoted.mjs`, which reads `.claude-plugin/plugin.json` — do not treat raw `npx skills add` discovery (which may include non-promoted buckets) as the ship set.
+
 Skills are organized into bucket folders under `skills/`:
 
 - `engineering/` — daily code work
