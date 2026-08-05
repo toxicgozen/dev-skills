@@ -42,5 +42,7 @@ Recommended installs for this fork:
 - Other agents: run `scripts/install-promoted.mjs` (or pass the same skill names
   to `npx skills add … --skill …`). The script reads `plugin.json` so both
   paths share one authority list.
+- Global Cursor/Codex bootstrap for an agent: point it at
+  [`global-scope-skills-bootstrap.md`](./global-scope-skills-bootstrap.md).
 
 Do not modify the public `skills` CLI to filter buckets.
