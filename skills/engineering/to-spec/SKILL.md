@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user — just synthesize what you already know.
 
-The consuming project's spec contract owns the destination, template, naming, status, and publication boundary. Prefer a repo-local spec file when the project declares one. Never create an external issue, apply a label, or publish outside the repository unless the user explicitly requests that external action in the current task. If the project has no spec contract and no issue-tracker setup yet, run `/setup-matt-pocock-skills` only when the user wants tracker-backed publication.
+The consuming project's spec contract owns the destination, template, naming, status, and publication boundary. Prefer a repo-local spec file when the project declares one. Never create an external issue, apply a label, or publish outside the repository unless the user explicitly requests that external action in the current task. If the project has no spec contract and no issue-tracker setup yet, run `/setup-dev-skills-structure` only when the user wants tracker-backed publication.
 
 ## Process
 

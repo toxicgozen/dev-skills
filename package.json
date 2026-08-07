@@ -1,6 +1,6 @@
 {
   "name": "dev-skills",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "private": true,
   "description": "Public fork of Matt Pocock's agent skills — tracks upstream with a promoted install overlay",
   "repository": {
@@ -11,9 +11,8 @@
   "scripts": {
     "changeset": "changeset",
     "version": "changeset version",
-    "test": "node scripts/check-promoted-layout.mjs",
-    "check:privacy": "node scripts/check-fork-privacy.mjs",
-    "install:promoted": "node scripts/install-promoted.mjs"
+    "test": "node scripts/check-promoted-layout.mjs && node scripts/check-fork-lifecycle.mjs",
+    "check:privacy": "node scripts/check-fork-privacy.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",

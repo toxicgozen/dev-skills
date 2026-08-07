@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "upstream": {
+    "repository": "https://github.com/mattpocock/skills",
+    "branch": "main",
+    "reviewedThrough": "84fdeffd12f2ee307994d1eb6feb48173b6e0502"
+  },
+  "intents": [
+    {
+      "id": "github-cli-sandbox-auth",
+      "issue": "https://github.com/toxicgozen/dev-skills/issues/1",
+      "intent": "Distinguish sandbox credential-store isolation from a genuinely expired GitHub CLI login.",
+      "upstreamCoverage": "Upstream tracker guidance does not cover Codex sandbox credential-store isolation at the reviewed commit.",
+      "areas": [
+        "setup-dev-skills-structure GitHub tracker template",
+        "setup-dev-skills-structure human documentation"
+      ],
+      "evidence": [
+        "issue #1 reproduction",
+        "fork commit 948c1d0"
+      ],
+      "status": "active",
+      "lastReviewedUpstream": "84fdeffd12f2ee307994d1eb6feb48173b6e0502"
+    },
+    {
+      "id": "fork-lifecycle",
+      "issue": "https://github.com/toxicgozen/dev-skills/issues/2",
+      "intent": "Keep project-structure setup aligned with upstream, document direct npx maintenance for global copies, provide one intent-level upstream pull entry point, and enforce the Issue to Intent to Commit protocol.",
+      "upstreamCoverage": "This is fork-maintenance behavior tied to toxicgozen/dev-skills and is intentionally outside the upstream repository's responsibilities.",
+      "areas": [
+        "setup-dev-skills-structure",
+        "pull-update-dev-skills",
+        "global-scope npx runbook",
+        "promoted layout and lifecycle validation",
+        "fork instructions and intent registry"
+      ],
+      "evidence": [
+        "issue #2 agent brief",
+        "ADR 0004 keep global installation outside the skill set"
+      ],
+      "status": "active",
+      "lastReviewedUpstream": "84fdeffd12f2ee307994d1eb6feb48173b6e0502"
+    },
+    {
+      "id": "domain-language-admission",
+      "issue": null,
+      "sourceCommit": "f0f7f8e",
+      "intent": "Admit familiar technical terms to the project language when a stable local distinction changes reasoning.",
+      "upstreamCoverage": "Needs comparison with upstream's wait-what and current domain-modeling guidance before the fork retains or removes this older overlay.",
+      "areas": [
+        "domain-modeling term admission",
+        "CONTEXT format guidance"
+      ],
+      "evidence": [
+        "fork commit f0f7f8e",
+        "upstream wait-what introduction 355fa74"
+      ],
+      "status": "needs-decision",
+      "lastReviewedUpstream": "84fdeffd12f2ee307994d1eb6feb48173b6e0502"
+    },
+    {
+      "id": "project-owned-spec-publication",
+      "issue": null,
+      "sourceCommit": "f0f7f8e",
+      "intent": "Let a consuming project's spec contract own destination and publication instead of assuming every spec becomes an external issue.",
+      "upstreamCoverage": "No upstream intent decision has been recorded for this older overlay; compare the current to-spec contract before retaining it.",
+      "areas": [
+        "to-spec destination and publication boundary",
+        "ask-matt setup precondition"
+      ],
+      "evidence": [
+        "fork commit f0f7f8e"
+      ],
+      "status": "needs-decision",
+      "lastReviewedUpstream": "84fdeffd12f2ee307994d1eb6feb48173b6e0502"
+    },
+    {
+      "id": "resume-own-wayfinder-claim",
+      "issue": null,
+      "sourceCommit": "f0f7f8e",
+      "intent": "Distinguish the current maintainer's unfinished wayfinder claim from work claimed by another session.",
+      "upstreamCoverage": "No upstream intent decision has been recorded for this older overlay; compare current wayfinder claim semantics before retaining it.",
+      "areas": [
+        "wayfinder frontier selection",
+        "local tracker claim identity"
+      ],
+      "evidence": [
+        "fork commit f0f7f8e"
+      ],
+      "status": "needs-decision",
+      "lastReviewedUpstream": "84fdeffd12f2ee307994d1eb6feb48173b6e0502"
+    },
+    {
+      "id": "evidence-provenance-in-grilling",
+      "issue": null,
+      "sourceCommit": "f0f7f8e",
+      "intent": "Separate repository fact, local preference, synthesis, and external prior art before recommending a design during grilling.",
+      "upstreamCoverage": "No upstream intent decision has been recorded for this older overlay; compare current grilling evidence rules before retaining it.",
+      "areas": [
+        "grilling recommendation evidence"
+      ],
+      "evidence": [
+        "fork commit f0f7f8e"
+      ],
+      "status": "needs-decision",
+      "lastReviewedUpstream": "84fdeffd12f2ee307994d1eb6feb48173b6e0502"
+    }
+  ]
+}

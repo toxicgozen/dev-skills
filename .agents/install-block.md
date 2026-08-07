@@ -22,17 +22,24 @@ It's in Claude Code's official marketplace, so there's nothing to add first, and
 
 </canonical-block>
 
-## Codex, and other agents — skills.sh
+## Codex, and other agents — this fork
 
-The plugin is Claude Code only. Everywhere else, [skills.sh](https://skills.sh/mattpocock/skills) copies editable skill files into the project. Use the whole-set form on `README.md`:
+The plugin is Claude Code only. Install this fork's promoted set directly from
+any directory:
 
 <canonical-block name="skills-sh-whole-set">
 
 ```bash
-npx skills@latest add mattpocock/skills
+npx skills@latest add toxicgozen/dev-skills --skill ask-matt diagnosing-bugs grill-with-docs triage improve-codebase-architecture setup-dev-skills-structure pull-update-dev-skills tdd to-spec to-tickets wayfinder implement prototype research domain-modeling codebase-design code-review resolving-merge-conflicts wizard grill-me grilling handoff teach to-questionnaire wait-what writing-for-agents -g --agent cursor codex
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take — make sure `setup-matt-pocock-skills` is one of them.**
+The command installs exactly the names in `.claude-plugin/plugin.json`; raw
+repository discovery may also expose non-promoted buckets. The CLI keeps its
+overwrite confirmation visible; cancel if a same-named skill belongs to a
+different source. Differently named skills are never part of reconciliation.
+Use `npx skills@latest update -g` for later global refreshes; no clone is
+required. The operational runbook is
+[`global-scope-skills-bootstrap.md`](../global-scope-skills-bootstrap.md).
 
 </canonical-block>
 
@@ -41,7 +48,7 @@ Pick the skills you want, and which coding agents to install them on. **The inst
 <canonical-block name="skills-sh-one-skill">
 
 ```bash
-npx skills@latest add mattpocock/skills --skill=<name>
+npx skills@latest add toxicgozen/dev-skills --skill=<name>
 ```
 
 ```bash

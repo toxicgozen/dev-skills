@@ -1,5 +1,20 @@
 # mattpocock-skills
 
+## 1.3.0
+
+### Minor Changes
+
+- Establish the fork lifecycle from [issue #2](https://github.com/toxicgozen/dev-skills/issues/2):
+  - rename `/setup-matt-pocock-skills` to `/setup-dev-skills-structure`, preserving its project-structure purpose;
+  - document direct `npx skills` commands for global installation and refresh, with no clone-dependent bootstrap skill;
+  - add `/pull-update-dev-skills` for plan-first, intent-level alignment with upstream;
+  - add `fork-intents.json` and the Issue → Intent → Commit protocol;
+  - validate the promoted layout, lifecycle names, and direct-install command against the plugin manifest.
+
+  Reinstall the promoted set to pick up the renamed skills. Existing
+  `docs/agents/` configuration remains valid; only the command used to create or
+  verify it changed.
+
 ## 1.2.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
-Before modifying this public personal fork, read [`FORK.md`](./FORK.md) and apply its privacy and upstream-tracking boundary in addition to the upstream rules below.
+Before modifying this public personal fork, read [`FORK.md`](./FORK.md) and [`fork-intents.json`](./fork-intents.json), then apply their privacy, Issue → Intent → Commit, and upstream-tracking boundaries in addition to the upstream rules below.
 
-This fork tracks [mattpocock/skills](https://github.com/mattpocock/skills). Prefer upstream behaviour; keep only small overlays documented in `FORK.md` / fork ADRs. Recommended non-Claude installs use `scripts/install-promoted.mjs`, which reads `.claude-plugin/plugin.json` — do not treat raw `npx skills add` discovery (which may include non-promoted buckets) as the ship set.
+This fork tracks [mattpocock/skills](https://github.com/mattpocock/skills). Prefer upstream behaviour; keep only small overlays registered in `fork-intents.json` and explained by `FORK.md` / fork ADRs. Global copies install and refresh directly through `npx skills`; `/setup-dev-skills-structure` configures a consumer project, and `/pull-update-dev-skills` handles intent-level upstream alignment. The explicit names in the documented install command mirror `.claude-plugin/plugin.json` — do not treat raw `npx skills add` discovery (which may include non-promoted buckets) as the ship set.
 
 Skills are organized into bucket folders under `skills/`:
 

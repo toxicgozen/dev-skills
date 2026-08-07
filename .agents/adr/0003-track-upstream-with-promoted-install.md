@@ -18,8 +18,8 @@ Instead:
 
 1. Keep the upstream tree and plugin manifest as the source of truth for what
    is promoted.
-2. Expose a thin local installer (`scripts/install-promoted.mjs`) that reads
-   `plugin.json` and calls `npx skills add … --skill <names>`.
+2. Document one direct `npx skills` command whose explicit names mirror
+   `plugin.json`; do not add a clone-dependent installation wrapper.
 3. Re-apply only documented fork skill patches after each upstream sync; drop
    them when upstream covers the same behaviour.
 

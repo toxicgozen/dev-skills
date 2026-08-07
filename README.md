@@ -10,7 +10,7 @@
 
 # Skills For Real Engineers
 
-> **Fork:** [`toxicgozen/dev-skills`](https://github.com/toxicgozen/dev-skills) tracks [`mattpocock/skills`](https://github.com/mattpocock/skills). Read [`FORK.md`](./FORK.md) for privacy, sync, and the promoted install overlay. Prefer `node scripts/install-promoted.mjs` (or `npm run install:promoted`) so installs match `.claude-plugin/plugin.json` rather than every nested draft under `skills/`.
+> **Fork:** [`toxicgozen/dev-skills`](https://github.com/toxicgozen/dev-skills) tracks [`mattpocock/skills`](https://github.com/mattpocock/skills). Read [`FORK.md`](./FORK.md) for privacy, intent tracking, and upstream alignment. Global copies are installed and refreshed directly with `npx skills`; `/setup-dev-skills-structure` configures a project, and `/pull-update-dev-skills` aligns the fork source with upstream.
 
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
@@ -26,7 +26,7 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 ## Installation (30-second setup)
 
-Two ways in, two philosophies. **The [Claude Code plugin](https://code.claude.com/docs/en/plugins)** installs the whole set as a managed, read-only bundle that updates when I ship — you subscribe rather than fork. **[skills.sh](https://skills.sh/mattpocock/skills)** copies editable skill files into your project, so you can hack on them and make them your own. Pick one — installing both leaves you with every skill twice.
+Two ways in, two philosophies. **The [Claude Code plugin](https://code.claude.com/docs/en/plugins)** installs the whole set as a managed, read-only bundle that updates when I ship — you subscribe rather than fork. **[skills.sh](https://skills.sh/mattpocock/skills)** copies editable skill files into your agent's skill directory, so you can hack on them and make them your own. Pick one — installing both leaves you with every skill twice.
 
 ### 1. Get the skills
 
@@ -50,44 +50,32 @@ It's in Claude Code's official marketplace, so there's nothing to add first, and
 <details>
 <summary><strong>Codex, and other agents (this fork)</strong></summary>
 
-Install only the promoted set from this fork:
+The plugin is Claude Code only. Install this fork's promoted set directly from
+any directory:
 
 ```bash
-node scripts/install-promoted.mjs toxicgozen/dev-skills
+npx skills@latest add toxicgozen/dev-skills --skill ask-matt diagnosing-bugs grill-with-docs triage improve-codebase-architecture setup-dev-skills-structure pull-update-dev-skills tdd to-spec to-tickets wayfinder implement prototype research domain-modeling codebase-design code-review resolving-merge-conflicts wizard grill-me grilling handoff teach to-questionnaire wait-what writing-for-agents -g --agent cursor codex
 ```
 
-Or from a local checkout:
-
-```bash
-node scripts/install-promoted.mjs .
-```
-
-The script reads `.claude-plugin/plugin.json` and passes those skill names to `npx skills`. Raw `npx skills add toxicgozen/dev-skills` without the script may also offer non-promoted buckets — prefer the script. **Make sure `setup-matt-pocock-skills` is included** (it is, when using the script).
+The command installs exactly the names in `.claude-plugin/plugin.json`; raw
+repository discovery may also expose non-promoted buckets. The CLI keeps its
+overwrite confirmation visible; cancel if a same-named skill belongs to a
+different source. Differently named skills are never part of reconciliation.
+Use `npx skills@latest update -g` for later global refreshes; no clone is
+required. The operational runbook is
+[`global-scope-skills-bootstrap.md`](./global-scope-skills-bootstrap.md).
 
 A native Codex plugin is on the upstream roadmap — see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
 </details>
 
-<details>
-<summary><strong>For tinkerers</strong></summary>
+### 2. Run `/setup-dev-skills-structure`
 
-Use the promoted installer on any agent — including Claude Code — when you want editable copies:
+In your agent, run it once per consumer repo. It will:
 
-```bash
-node scripts/install-promoted.mjs toxicgozen/dev-skills
-```
-
-It writes the skills into your repo as ordinary files you own and can edit. Sync this fork from upstream when you want Matt's latest changes, then re-apply any remaining overlays from `FORK.md`.
-
-</details>
-
-### 2. Run `/setup-matt-pocock-skills`
-
-In your agent, run it once per repo. It will:
-
-- Ask you which issue tracker you want to use (GitHub, Linear, or local files)
-- Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
-- Ask you where you want to save any docs we create
+- Record the issue tracker contract (GitHub, GitLab, local files, or a custom workflow)
+- Confirm the triage label vocabulary when `/triage` is installed
+- Record the domain-doc layout, asking only when monorepo signals make the choice real
 
 ### 3. Bam - you're ready to go.
 
@@ -205,7 +193,8 @@ Skills I use daily for code work.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** — Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)** — Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
-- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)** — Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
+- **[setup-dev-skills-structure](./skills/engineering/setup-dev-skills-structure/SKILL.md)** — Configure a consumer repo's issue tracker, triage labels, and domain doc layout. Run once before tracker-dependent flows.
+- **[pull-update-dev-skills](./skills/engineering/pull-update-dev-skills/SKILL.md)** — Compare this fork with upstream by recorded intent, plan first, then retain, replace, or escalate each overlay.
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)** — Turn the current conversation into a spec and publish it to the issue tracker. No interview — just synthesizes what you've already discussed.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** — Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges — written as text in a local file, or as native blocking links on a real tracker.
 - **[implement](./skills/engineering/implement/SKILL.md)** — Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.

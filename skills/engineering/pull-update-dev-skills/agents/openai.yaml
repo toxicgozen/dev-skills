@@ -1,0 +1,6 @@
+interface:
+  display_name: "Pull & Update Dev Skills"
+  short_description: "Align this fork with upstream by recorded intent"
+  default_prompt: "Use $pull-update-dev-skills to compare this fork with upstream and plan an intent-level sync."
+policy:
+  allow_implicit_invocation: false

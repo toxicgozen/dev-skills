@@ -1,64 +1,35 @@
-# Global-scope skills bootstrap
+# Maintain the global skill set
 
-Instructions for an agent configuring **global** Cursor / Codex skills from this fork.
-Humans: open this file in chat and say “follow it”.
+The global install does not depend on a clone of this repository. The
+[`skills` CLI](https://www.skills.sh/docs/cli) owns both installation and later
+updates; the repository only declares which skills are promoted.
 
-## Hard boundaries
+## Install the promoted set
 
-1. Only manage skills whose install source is `toxicgozen/dev-skills` (see `skills-lock.json` `source` fields, or the skill set this script installs).
-2. Do **not** add, update, remove, or rename skills from any other source (other GitHub repos, Cursor built-ins under `skills-cursor`, personal skills, etc.).
-3. Do **not** use `npx skills add … -s '*'` / `--skill '*'`. That installs non-promoted buckets (`in-progress/`, `misc/`, `deprecated/`).
-4. Do **not** edit skill bodies under `~/.agents/skills`, `~/.cursor/skills`, or `~/.codex/skills` by hand unless the installer failed and you are recovering — prefer the installer.
-
-## Authority
-
-- Promoted set: `.claude-plugin/plugin.json` → `skills` array
-- Installer: `scripts/install-promoted.mjs` (reads that array; does not change the public `skills` CLI)
-
-## Steps
-
-Run from this repository root (a clone of `toxicgozen/dev-skills`).
-
-### 1. Install / refresh the promoted set (global)
+Run the command below from any directory. It installs the exact set in
+`.claude-plugin/plugin.json` for Cursor and Codex at global scope:
 
 ```bash
-node scripts/install-promoted.mjs . -- -g --agent cursor codex -y
+npx skills@latest add toxicgozen/dev-skills --skill ask-matt diagnosing-bugs grill-with-docs triage improve-codebase-architecture setup-dev-skills-structure pull-update-dev-skills tdd to-spec to-tickets wayfinder implement prototype research domain-modeling codebase-design code-review resolving-merge-conflicts wizard grill-me grilling handoff teach to-questionnaire wait-what writing-for-agents -g --agent cursor codex
 ```
 
-If the checkout is not the source you want on the lockfile, use the GitHub source instead:
+The overwrite confirmation stays visible. If it reports a same-named skill
+owned by another source, cancel and decide which source should own that name.
+
+## Update installed skills
+
+Use the CLI's global update operation; no repository checkout or pull is
+required:
 
 ```bash
-node scripts/install-promoted.mjs toxicgozen/dev-skills -- -g --agent cursor codex -y
+npx skills@latest update -g
 ```
 
-Pass extra `npx skills` flags after `--` if needed (other agents, no `-y`, etc.).
+The CLI reads its lock file to find installed sources. Use
+`npx skills@latest list -g` first when you want to inspect the global set, or
+pass specific skill names to `update` when you do not want to refresh every
+global skill.
 
-### 2. Remove obsolete skills from this source only
-
-After a layout change (for example drafts that used to ship, or renames like `writing-great-skills` → `writing-for-agents`):
-
-1. Read the global/project `skills-lock.json` the CLI maintains for this install scope.
-2. Collect skill names where `source` is `toxicgozen/dev-skills` (or the local path equivalent for this repo).
-3. Subtract the current promoted names from `plugin.json`.
-4. For each leftover name, remove **only those**, e.g.:
-
-```bash
-npx skills remove -g -a cursor -a codex -y --skill <name1> <name2> ...
-```
-
-If a leftover skill is not in the lock under this source, leave it alone.
-
-### 3. Verify
-
-```bash
-npx skills list -g
-node scripts/check-promoted-layout.mjs
-```
-
-Confirm promoted skills are present for the requested agents, and that skills from other sources still exist unchanged.
-
-## Out of scope
-
-- Project-local installs (omit `-g`) unless the human explicitly asks
-- Claude Code plugin marketplace install (`claude plugins install …`) — different path; see `README.md` / upstream docs
-- Syncing or rewriting this repository’s skill content (that is normal repo work, not this bootstrap)
+This is different from `/pull-update-dev-skills`: that command updates the fork
+source against `mattpocock/skills`, while the CLI updates the copies installed
+on one machine.

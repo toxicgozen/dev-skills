@@ -1,6 +1,6 @@
 # Matt Pocock Skills (toxicgozen/dev-skills fork)
 
-A collection of agent skills (slash commands and behaviors) tracked from upstream and adapted only where this fork documents an overlay. Skills are organized into buckets; the promoted set is the `skills` array in `.claude-plugin/plugin.json`. Consumers install that set via the Claude plugin or `scripts/install-promoted.mjs`. Per-repo configuration is emitted by `/setup-matt-pocock-skills`.
+A collection of agent skills (slash commands and behaviors) tracked from upstream and adapted only where this fork registers an overlay. Skills are organized into buckets; the promoted set is the `skills` array in `.claude-plugin/plugin.json`. Consumers install and refresh that set directly with the skills CLI. Project structure is emitted by `/setup-dev-skills-structure`; fork-source alignment is handled by `/pull-update-dev-skills`.
 
 ## Language
 

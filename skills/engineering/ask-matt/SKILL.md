@@ -87,4 +87,9 @@ Off the main flow entirely.
 
 ## Precondition
 
-**`/setup-matt-pocock-skills`** — run before flows that need its issue-tracker, triage-label, or doc-layout setup. `to-spec` can instead use an existing project-local spec contract and does not require tracker setup unless external publication is explicitly requested.
+**`/setup-dev-skills-structure`** — run before flows that need issue-tracker, triage-label, or doc-layout setup. `to-spec` can instead use an existing project-local spec contract and does not require tracker setup unless external publication is explicitly requested.
+
+## Fork lifecycle
+
+- **Global installation** — use the documented `npx skills` commands; this is package-manager work, not a skill.
+- **`/pull-update-dev-skills`** — maintain this fork against upstream by recorded intent. It plans before changing the tree and asks whenever local and upstream intent only partially overlap.
