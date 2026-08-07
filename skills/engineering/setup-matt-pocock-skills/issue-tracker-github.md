@@ -13,6 +13,28 @@ Issues and specs for this repo live as GitHub issues. Use the `gh` CLI for all o
 
 Infer the repo from `git remote -v` — `gh` does this automatically when run inside a clone.
 
+## When `gh` authentication fails in a sandbox
+
+Prefer an available GitHub connector for the operations it supports. Use `gh`
+when the connector has a capability gap.
+
+An authentication failure inside a restricted agent sandbox is not proof that
+the user's GitHub login has expired: the sandbox may be unable to read the
+operating system's credential store. Diagnose that branch before changing
+authentication:
+
+1. With the required approval, run only `gh auth status` outside the sandbox.
+2. If it succeeds there, keep using the credential store and run only the
+   specific `gh` command needed for the task outside the sandbox, with a narrow
+   approval for that command.
+3. If it also fails outside the sandbox, report a real CLI authentication
+   failure and ask the user to sign in.
+
+Never copy, print, export, or inject a token to bridge the sandbox boundary, and
+do not run `gh auth login` merely because the sandboxed check failed. If the
+harness cannot request an outside-sandbox check, ask the user to run
+`gh auth status` in their normal terminal and report only whether it succeeds.
+
 ## Pull requests as a triage surface
 
 **PRs as a request surface: no.** _(Set to `yes` if this repo treats external PRs as feature requests; `/triage` reads this flag.)_

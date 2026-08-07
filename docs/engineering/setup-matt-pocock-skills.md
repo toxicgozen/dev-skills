@@ -58,6 +58,10 @@ No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made t
 
 Asked directly after v1.1, Matt said yes. The skill's own closing message is softer — it tells you re-running is only needed to switch trackers or start over. Both are defensible and the reason for the gap is real: the seed templates change between versions, so a `docs/agents/issue-tracker.md` written by an older release can go stale against the skills now reading it. If a downstream skill starts doing something the docs describe differently, re-running is the cheap fix.
 
+**`gh` says my token is invalid in Codex, but it works in my normal terminal. Do I need to log in again?**
+
+Usually not. A restricted agent sandbox may be able to read the GitHub CLI config while being unable to reach the operating system's credential store, so `gh auth status` can report an invalid token only inside the sandbox. The GitHub template treats that as an authentication-isolation branch: it prefers an available GitHub connector, otherwise verifies `gh auth status` outside the sandbox with approval and elevates only the specific command that needs the existing login. It never moves the token into an environment variable to bridge the boundary. If the outside-sandbox check also fails, then the CLI login really does need attention.
+
 **It wrote to `CLAUDE.md`, but I'm on Codex.**
 
 Known gap, still open. The file-selection rule is "edit `CLAUDE.md` if it exists, else `AGENTS.md`" — it checks which file exists, not which [harness](https://www.aihero.dev/ai-coding-dictionary/harness) is running. A repo with a `CLAUDE.md` left over from Claude Code will get its `## Agent skills` block somewhere Codex never reads. Two workarounds are in circulation: move the block to `AGENTS.md` by hand, or keep `AGENTS.md` canonical and make `CLAUDE.md` a one-line pointer at it. If neither file exists, the skill asks you which to create rather than picking, which has confused people who expected it to just decide.
